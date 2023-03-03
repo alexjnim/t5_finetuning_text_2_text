@@ -20,9 +20,6 @@ def train_t5(args) -> None:
     training_data = load_training_data()
     validation_data = load_validation_data()
 
-    training_data = training_data[:10]
-    validation_data = validation_data[:10]
-
     model = T5ForConditionalGeneration.from_pretrained(args.model_name)
     model = model.to(device)
     tokenizer = T5Tokenizer.from_pretrained(args.model_name)

@@ -11,10 +11,10 @@ class T5SUM:
         self.tokenizer = T5Tokenizer.from_pretrained(save_model_path)
         self.max_token_len = max_token_len
 
-    def generate_phonemes(self, grapheme: str) -> str:
+    def generate_summary(self, text: str) -> str:
         task_prefix = "Summarise: "
 
-        model_input = task_prefix + grapheme
+        model_input = task_prefix + text
 
         encoding = self.tokenizer(
             [model_input],

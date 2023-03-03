@@ -13,4 +13,4 @@ ENV PYTHONPATH "${PYTHONPATH}:/app"
 EXPOSE 5000
 EXPOSE 9000
 
-CMD exec seldon-core-microservice seldon.T5G2PService.T5G2PService --service-type MODEL --persistence 0
+CMD exec seldon-core-microservice seldon.SummarisationModel.T5SUM --service-type MODEL --persistence 0

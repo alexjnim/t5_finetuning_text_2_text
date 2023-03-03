@@ -21,7 +21,7 @@ def test_saved_model(args) -> None:
     test_dataloader = build_test_dataloader(
         args=args,
         tokenizer=tokenizer,
-        max_length=args.max_token_len,
+        max_token_len=args.max_token_len,
         test_data=test_data,
     )
 
@@ -36,7 +36,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--save_model_path",
         "-smp",
-        default="./model/30_epochs_13_02_2023_t5-small_model",
+        default="./model/30_epochs_03_03_2023_t5-small_model",
         action="store",
         help="name of huggingface bert model",
     )

@@ -15,6 +15,10 @@ def test_model(
     # Tracking variables
     all_rouge1_scores, all_rougeL_scores = [], []
 
+    # scorer
+    scorer = rouge_scorer.RougeScorer(['rouge1', 'rougeL'], use_stemmer=True)
+    
+    
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     for _, batch in enumerate(test_dataloader):
@@ -41,15 +45,14 @@ def test_model(
 
         test_targets = batch["target_text"]
 
-        for pred, targets in zip(preds, test_targets):
-            targets = targets.split("___")
-            wer_scores = [wer(pred, t) for t in targets]
-            cer_scores = [cer(pred, t) for t in targets]
+        for pred, target in zip(preds, test_targets):
+            scores = scorer.score(target,pred)
+            rouge1 = scores['rouge1']
+            rougeL = scores['rougeL']
+            all_rouge1_scores.append(rouge1.fmeasure)
+            all_rougeL_scores.append(rougeL.fmeasure)
 
-            all_wer_scores.append(max(wer_scores))
-            all_cer_scores.append(max(cer_scores))
-
-    avg_wer = sum(all_wer_scores) / len(all_wer_scores)
-    avg_cer = sum(all_cer_scores) / len(all_cer_scores)
-    print(f"Average WER: {avg_wer}")
-    print(f"Average CER: {avg_cer}")
+    avg_rouge1 = sum(all_rouge1_scores) / len(all_rouge1_scores)
+    avg_rougeL = sum(all_rougeL_scores) / len(all_rougeL_scores)
+    print(f"Average ROUGE1: {avg_rouge1}")
+    print(f"Average ROUGEL: {avg_rougeL}")

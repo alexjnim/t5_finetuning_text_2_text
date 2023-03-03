@@ -1,7 +1,7 @@
 version: '3'
 services:
-  g2p_service: 
-    container_name: g2p_service
+  t5_sum_service: 
+    container_name: t5_sum_service
     build:
       context: .
       dockerfile: Dockerfile 
